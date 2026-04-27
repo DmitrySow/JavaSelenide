@@ -21,14 +21,15 @@ public class DBTest {
 
     @Test
     void getUsers() {
+
         Result<Record> result = dsl.select()
                 .from("users")
+                .where("id = 2")
                 .fetch();
 
         assertThat(result).isNotEmpty();
 
         System.out.print(result.get(0));
-        System.out.print(result.get(1));
     }
 
 }
