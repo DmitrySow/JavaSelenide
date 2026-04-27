@@ -21,7 +21,7 @@ public class ElementsPageTest {
     private ElementsPage elementsPage;
 
     @BeforeEach
-    public void clickTextBoxTab() {
+    public void openHomePage() {
         open("https://demoqa.com");
         homePage = new HomePage();
         elementsPage = new ElementsPage();
