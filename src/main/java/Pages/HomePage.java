@@ -10,9 +10,14 @@ public class HomePage {
     private final SelenideElement widgetsButton = $("h5:contains('Widgets')");
     private final SelenideElement interactionsButton = $("h5:contains('Interactions')");
     private final SelenideElement bookStoreApplicationButton = $("h5:contains('Book Store Application')");
+    private final String url = "https://demoqa.com";
 
     public void clickElementsButton () {
         executeJavaScript("arguments[0].click();", elementsButton);
+    }
+
+    public String getUrl() {
+        return url;
     }
 
 }

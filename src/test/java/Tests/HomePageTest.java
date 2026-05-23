@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
@@ -15,7 +16,7 @@ public class HomePageTest {
 
     @BeforeEach
     public void setUp() {
-        open("https://demoqa.com");
+        open(homePage.getUrl());
         homePage = new HomePage();
     }
 
@@ -25,8 +26,7 @@ public class HomePageTest {
 
         String currentUrl = url();
 
-        assertTrue(currentUrl.equals("https://demoqa.com/elements"));
-
+        assertThat(currentUrl).isEqualTo(homePage.getUrl());
         System.out.print("Мы там где хотели быть!");
     }
 

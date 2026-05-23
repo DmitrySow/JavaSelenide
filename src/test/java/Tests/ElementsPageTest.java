@@ -2,14 +2,12 @@ package Tests;
 
 import Pages.HomePage;
 import Pages.ElementsPage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,16 +31,17 @@ public class ElementsPageTest {
         homePage.clickElementsButton();
 
         String currentUrl = url();
-        assertTrue(currentUrl.equals("https://demoqa.com/elements"));
+        assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
         System.out.println("Открыта страница Elements");
 
         elementsPage.clickTextBoxTab();
 
         currentUrl = url();
-        assertTrue(currentUrl.equals("https://demoqa.com/text-box"));
+        assertThat(currentUrl).isEqualTo("https://demoqa.com/text-box");
         System.out.println("Открыта страница TextBox!");
     }
 
+    @Disabled
     @Test
     @DisplayName("Заполнение формы валидными данными")
     public void fillingForm() {
@@ -73,6 +72,45 @@ public class ElementsPageTest {
         elementsPage.clickSubmit();
         System.out.print("Нажали на кнопку");
 
+    }
+
+    @ParameterizedTest
+    @DisplayName("Заполнение формы валидными данными")
+    @CsvSource (value = {
+    "Олег Газманов, ogz@yandex.ru, Город Бухарест, Город Сочи",
+    "Бориска Барсук, pochta@mail.ru, Сельская местность, Городская местность",
+    "Собака Рекс, rexxx@test.mail.ru, Будка, Конура"})
+    public void fillingFormParam(String name, String email, String currentAddress, String permAddress) {
+        homePage.clickElementsButton();
+
+        String currentUrl = url();
+        assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
+        System.out.println("Открыта страница Elements");
+
+        elementsPage.clickTextBoxTab();
+
+        currentUrl = url();
+        assertTrue(currentUrl.equals("https://demoqa.com/text-box"));
+        System.out.println("Открыта страница TextBox!");
+
+        elementsPage.insertFullName(name);
+        String fname = elementsPage.getFullName();
+        assertThat(fname).isEqualTo(name);
+
+        elementsPage.insertEmail(email);
+        String femail = elementsPage.getEmail();
+        assertThat(femail).isEqualTo(email);
+
+        elementsPage.insertCurrentAddress(currentAddress);
+        String fcurrentaddress = elementsPage.getCurrentAddress();
+        assertThat(fcurrentaddress).isEqualTo(currentAddress);
+
+        elementsPage.insertPermanentAddress(permAddress);
+        String fperaddress = elementsPage.getPermanentAddress();
+        assertThat(permAddress).isEqualTo(permAddress);
+
+        elementsPage.clickSubmit();
+        System.out.print("Нажали на кнопку");
     }
 
     @Test
