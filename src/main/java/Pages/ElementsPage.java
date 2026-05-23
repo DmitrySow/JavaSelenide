@@ -16,6 +16,7 @@ public class ElementsPage {
     private final SelenideElement currentAddressBox = $("textarea[placeholder='Current Address']");
     private final SelenideElement permanentAddress = $("textarea#permanentAddress");
     private final SelenideElement submitButton = $("button#submit");
+    private final String url = "https://demoqa.com/elements";
 
     //Web Tables
     private final SelenideElement webTablesTab = $("[href='/webtables']");
@@ -29,36 +30,36 @@ public class ElementsPage {
         fullNameBox.setValue(str);
     }
 
-    public void getFullName() {
+    public String getFullName() {
         String str = fullNameBox.getValue();
-        System.out.println(str);
+        return str;
     }
 
     public void insertEmail(String str) {
         emailBox.setValue(str);
     }
 
-    public void getEmail() {
+    public String getEmail() {
         String str = emailBox.getValue();
-        System.out.println(str);
+        return str;
     }
 
     public void insertCurrentAddress(String str) {
         currentAddressBox.setValue(str);
     }
 
-    public void getCurrentAddress() {
+    public String getCurrentAddress() {
         String str = currentAddressBox.getValue();
-        System.out.println(str);
+        return str;
     }
 
     public void insertPermanentAddress(String str) {
         permanentAddress.setValue(str);
     }
 
-    public void getPermanentAddress() {
+    public String getPermanentAddress() {
         String str = permanentAddress.getValue();
-        System.out.println(str);
+        return str;
     }
 
     public void clickSubmit() {
@@ -67,13 +68,12 @@ public class ElementsPage {
         submitButton.click();
     }
 
-    public void getValue(SelenideElement elem) {
-        String str = elem.getValue();
-        System.out.print(str);
-    }
-
     public void clickWebTablesTab() {
         webTablesTab.click();
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public ArrayList<String> getTableValues() {
