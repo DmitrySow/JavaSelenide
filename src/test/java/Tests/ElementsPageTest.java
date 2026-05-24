@@ -28,7 +28,7 @@ public class ElementsPageTest {
     @Test
     @DisplayName("Открытие страницы")
     public void openTextBoxTab() {
-        homePage.clickElementsButton();
+        homePage.getElementsButton().click();
 
         String currentUrl = url();
         assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
@@ -45,7 +45,7 @@ public class ElementsPageTest {
     @Test
     @DisplayName("Заполнение формы валидными данными")
     public void fillingForm() {
-        homePage.clickElementsButton();
+        homePage.getElementsButton().click();
 
         String currentUrl = url();
         assertTrue(currentUrl.equals("https://demoqa.com/elements"));
@@ -81,7 +81,7 @@ public class ElementsPageTest {
     "Бориска Барсук, pochta@mail.ru, Сельская местность, Городская местность",
     "Собака Рекс, rexxx@test.mail.ru, Будка, Конура"})
     public void fillingFormParam(String name, String email, String currentAddress, String permAddress) {
-        homePage.clickElementsButton();
+        homePage.getFormsButton().click();
 
         String currentUrl = url();
         assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
@@ -116,7 +116,7 @@ public class ElementsPageTest {
     @Test
     @DisplayName("Тест на таблицу")
     public void tableTest() {
-        homePage.clickElementsButton();
+        homePage.getElementsButton().click();
 
         String currentUrl = url();
         assertTrue(currentUrl.equals("https://demoqa.com/elements"));
