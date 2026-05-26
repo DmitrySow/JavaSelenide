@@ -1,5 +1,7 @@
 package Tests;
 
+import Pages.Components.RegFormOfTable;
+import Pages.Data.User;
 import Pages.HomePage;
 import Pages.ElementsPage;
 import org.junit.jupiter.api.*;
@@ -8,6 +10,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -84,7 +89,7 @@ public class ElementsPageTest {
         homePage.getFormsButton().click();
 
         String currentUrl = url();
-        assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
+        assertThat(currentUrl).isEqualTo("https://demoqa.com/forms");
         System.out.println("Открыта страница Elements");
 
         elementsPage.clickTextBoxTab();
@@ -113,6 +118,31 @@ public class ElementsPageTest {
         System.out.print("Нажали на кнопку");
     }
 
+    @ParameterizedTest
+    @DisplayName("Создание новых пользователей в таблице")
+    @CsvSource("Алексей, Романов, ARrrrr@test.ru, 34, 45000, Булочник")
+    public void makeNewUsersInTableTest(String firstName, String lastName, String email, String age, String salary, String dep) {
+        User user = new User(firstName, lastName, email, age, salary, dep);
+        RegFormOfTable form = new RegFormOfTable();
+
+        homePage.getElementsButton().click();
+        String currentUrl = url();
+        assertThat(currentUrl).isEqualTo(elementsPage.getUrl());
+
+        elementsPage.clickWebTablesTab();
+        currentUrl = url();
+        assertThat(currentUrl).isEqualTo("https://demoqa.com/webtables");
+
+        elementsPage.clickAdd();
+        form.getFirstname().shouldBe(visible);
+
+        form.fillRegForm(user);
+        form.getSubmitBotton().shouldBe(enabled).click();
+        assertThat(elementsPage.getFirstNameCol().getText()).isEqualTo(firstName);
+        assertThat(elementsPage.getLastNameCol().getText()).isEqualTo(lastName);
+    }
+
+    @Disabled
     @Test
     @DisplayName("Тест на таблицу")
     public void tableTest() {

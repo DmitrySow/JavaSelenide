@@ -20,6 +20,14 @@ public class ElementsPage {
 
     //Web Tables
     private final SelenideElement webTablesTab = $("[href='/webtables']");
+    private final SelenideElement addButton = $x("//button[contains(text(), 'Add')]");
+    private final SelenideElement firstNameCol = $("tbody tr:last-child td:nth-child(1)");
+    private final SelenideElement lastNameCol = $("tbody tr:last-child td:nth-child(2)");
+    private final SelenideElement ageCol = $("tbody tr:last-child td:nth-child(3)");
+    private final SelenideElement emailCol = $("tbody tr:last-child td:nth-child(4)");
+    private final SelenideElement salaryCol = $("tbody tr:last-child td:nth-child(5)");
+    private final SelenideElement depCol = $("tbody tr:last-child td:nth-child(6)");
+
     private final ElementsCollection rows = $$("tbody tr");
 
     public void clickTextBoxTab() {
@@ -70,6 +78,18 @@ public class ElementsPage {
 
     public void clickWebTablesTab() {
         webTablesTab.click();
+    }
+
+    public void clickAdd() {
+        addButton.click();
+    }
+
+    public SelenideElement getFirstNameCol() {
+        return firstNameCol;
+    }
+
+    public SelenideElement getLastNameCol() {
+        return lastNameCol;
     }
 
     public String getUrl() {
